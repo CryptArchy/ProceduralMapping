@@ -1,0 +1,73 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+	StructInfo[] types = new StructInfo[] { 
+		new StructInfo("Point3", new string[] {"X", "Y", "Z"}),
+		new StructInfo("Vector3", new string[] {"X", "Y", "Z"}),
+		new StructInfo("Size3", new string[] {"Height", "Width", "Depth"})
+	};
+#>
+using System;
+using CommonExtensions.NumericExtensions;
+
+namespace PCG.Models
+{
+<# foreach(var t in types) { #>
+    public struct <#=t.Name#>
+    {
+<#		foreach(var f in t.Fields) { #>
+        private int <#=f.ToLower()#>;
+		public int <#=f#> { get { return <#=f.ToLower()#>; } }
+
+<#		} #>
+        public <#=t.Name#>(int <#=t.Fields[0].ToLower()#>, int <#=t.Fields[1].ToLower()#>, int <#=t.Fields[2].ToLower()#>) : this()
+        {
+            this.<#=t.Fields[0].ToLower()#> = <#=t.Fields[0].ToLower()#>;
+            this.<#=t.Fields[1].ToLower()#> = <#=t.Fields[1].ToLower()#>;
+            this.<#=t.Fields[2].ToLower()#> = <#=t.Fields[2].ToLower()#>;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is <#=t.Name#>)
+            {
+                var that = (<#=t.Name#>)obj;
+                return this == that;
+            }
+            else { return false; }
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.<#=t.Fields[0]#> ^ this.<#=t.Fields[1]#>.RotateLeft(10) ^ this.<#=t.Fields[2]#>.RotateLeft(20)).Scramble();
+        }
+
+        public override string ToString()
+        {
+            return this.<#=t.Fields[0]#>.ToString() + "," + this.<#=t.Fields[1]#>.ToString() + "," + this.<#=t.Fields[2]#>.ToString();
+        }
+
+        public static bool operator ==(<#=t.Name#> a, <#=t.Name#> b)
+        {
+            return a.<#=t.Fields[0]#> == b.<#=t.Fields[0]#> && a.<#=t.Fields[1]#> == b.<#=t.Fields[1]#> && a.<#=t.Fields[2]#> == b.<#=t.Fields[2]#>;
+        }
+
+        public static bool operator !=(<#=t.Name#> a, <#=t.Name#> b)
+        {
+            return !(a == b);
+        }
+    }
+<# } #>
+}
+
+<#+ 
+	public class StructInfo {
+		public string Name {get; set;}
+		public string[] Fields {get;set;}
+		public StructInfo(string name, string[] fields) { this.Name = name; this.Fields = fields; }
+    }
+#>

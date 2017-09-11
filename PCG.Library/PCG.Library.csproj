@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C12C64A-65EB-42CF-BF1A-84243979A7BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PCG.Library</RootNamespace>
+    <AssemblyName>PCG.Library</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonExtensions">
+      <HintPath>..\Binaries\CommonExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="libnoise">
+      <HintPath>..\Binaries\libnoise.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Collections\AvlTree.cs" />
+    <Compile Include="Core\Collections\Cell.cs" />
+    <Compile Include="Core\Collections\CellMap.cs" />
+    <Compile Include="Core\Collections\BinaryTree.cs" />
+    <Compile Include="Core\Collections\Configuration.cs" />
+    <Compile Include="Core\Collections\ConsList.cs" />
+    <Compile Include="Core\Collections\MarkovChain.cs" />
+    <Compile Include="Core\Collections\MultiDimensionalArray.cs" />
+    <Compile Include="Core\Collections\ObservableList.cs" />
+    <Compile Include="Core\Collections\SgTree.cs" />
+    <Compile Include="Core\Box.cs" />
+    <Compile Include="Core\MapLayout.cs" />
+    <Compile Include="Core\Direction.cs" />
+    <Compile Include="Core\Collections\SplayTree.cs" />
+    <Compile Include="Core\SysRandom.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\RandomExtensions.cs" />
+    <Compile Include="Generators\Features\FeatureMap.cs" />
+    <Compile Include="Generators\Features\Zone.cs" />
+    <Compile Include="Generators\Maps\BinaryDivisionMapGenerator.cs" />
+    <Compile Include="Generators\Maps\CellularAutomataMapGenerator.cs" />
+    <Compile Include="Generators\Maps\KruskalsLoopyMapGenerator.cs" />
+    <Compile Include="Generators\Maps\KruskalsMapGenerator.cs" />
+    <Compile Include="Generators\Maps\TemplateBinaryDivisionMapGenerator.cs" />
+    <Compile Include="Generators\Maps\EmptyCircleMapGenerator.cs" />
+    <Compile Include="Generators\Maps\EmptyEllipseMapGenerator.cs" />
+    <Compile Include="Generators\Maps\EmptyMapGenerator.cs" />
+    <Compile Include="Generators\Maps\GrowingTreeMapGenerator.cs" />
+    <Compile Include="IMapGenerator.cs" />
+    <Compile Include="Generators\Maps\NoiseMapGenerator.cs" />
+    <Compile Include="Generators\Maps\RecursiveBacktrackingMapGenerator.cs" />
+    <Compile Include="Generators\Maps\SimpleMapGenerator.cs" />
+    <Compile Include="Generators\Maps\TemplateRegionMapGenerator.cs" />
+    <Compile Include="Intelligence\AStarPathFinder.cs" />
+    <Compile Include="Intelligence\RandomWalkPathFinder.cs" />
+    <Compile Include="IPathFinder.cs" />
+    <Compile Include="Intelligence\WallFollower.cs" />
+    <Compile Include="Core\Matrix.cs" />
+    <Compile Include="Intelligence\EmptyPathFinder.cs" />
+    <Compile Include="Core\Collections\NodeTree.cs" />
+    <Compile Include="Core\Point.cs" />
+    <Compile Include="IRandom.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Size.cs" />
+    <Compile Include="Core\TupleStructs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TupleStructs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Vector.cs" />
+    <Compile Include="Solver\Constraints.cs" />
+    <Compile Include="Solver\Problem.cs" />
+    <Compile Include="Solver\Variable.cs" />
+    <Compile Include="Story\NameGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\TupleStructs.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TupleStructs.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
